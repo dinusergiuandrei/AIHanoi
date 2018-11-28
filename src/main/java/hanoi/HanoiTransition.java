@@ -3,6 +3,8 @@ package hanoi;
 import problem.State;
 import problem.Transition;
 
+import java.io.IOException;
+
 public class HanoiTransition implements Transition {
     private Integer startTower;
     private Integer endTower;
@@ -12,6 +14,10 @@ public class HanoiTransition implements Transition {
         this.startTower = startTower;
         this.endTower = endTower;
         this.startState = startState;
+    }
+
+    public Transition getCopy() throws IOException, ClassNotFoundException {
+        return new HanoiTransition(startTower, endTower, startState.getCopy());
     }
 
     public void undo(){

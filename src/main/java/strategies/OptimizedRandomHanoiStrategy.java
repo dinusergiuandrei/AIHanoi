@@ -29,6 +29,11 @@ public class OptimizedRandomHanoiStrategy implements Strategy {
         return candidateTransitions.get(random.nextInt(candidateTransitions.size()));
     }
 
+    @Override
+    public String getName() {
+        return "Optimized Random Hanoi Strategy";
+    }
+
     private Boolean leadsToPastState(HanoiProblem problem, HanoiTransition transition) {
         HanoiState state = (HanoiState) transition.getEndState();
         boolean result = false;

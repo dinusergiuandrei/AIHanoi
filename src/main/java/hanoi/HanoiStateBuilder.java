@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Stack;
 
 public class HanoiStateBuilder {
+
     public HanoiState createRandomHanoiState(Integer towerCount, Integer tileCount) {
         List<Stack<Integer>> towers = new ArrayList<>();
         for (Integer i = 0; i < towerCount; i++) {

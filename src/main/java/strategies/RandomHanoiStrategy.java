@@ -15,4 +15,9 @@ public class RandomHanoiStrategy implements Strategy {
         return candidateTransitions.get(random.nextInt(candidateTransitions.size()));
     }
 
+    @Override
+    public String getName() {
+        return "Random Hanoi Strategy";
+    }
+
 }

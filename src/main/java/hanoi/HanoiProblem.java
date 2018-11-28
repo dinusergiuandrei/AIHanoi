@@ -28,10 +28,18 @@ public class HanoiProblem implements Problem {
 
     private Integer moveCount = 0;
 
+    private Integer maxMoveCount = 15000;
+
     public HanoiProblem(HanoiState startState, HanoiState endState) {
         this.startState = startState;
         this.endState = endState;
         initialize();
+    }
+
+    public HanoiProblem getDeepCopy() throws IOException, ClassNotFoundException {
+        HanoiState newStartState = this.startState.getCopy();
+        HanoiState newEndState = this.endState.getCopy();
+        return new HanoiProblem(newStartState, newEndState);
     }
 
     public Integer getMoveCount() {
@@ -98,10 +106,13 @@ public class HanoiProblem implements Problem {
     }
 
     @Override
-    public void updateIsSolved() {
+    public boolean updateIsSolved() {
         if (Objects.equals(((HanoiState) this.getCurrentState()).getTowers(), ((HanoiState) getEndState()).getTowers())) {
             this.setIsSolved(true);
         }
+
+        int moveCount = this.getPastStates().size() + this.getMoveCount();
+        return moveCount >= maxMoveCount;
     }
 
     public void resetPastStates() {

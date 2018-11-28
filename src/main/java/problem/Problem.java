@@ -13,17 +13,21 @@ public interface Problem {
 
     default Boolean solve(Strategy strategy){
         long start = System.currentTimeMillis();
-        System.out.println(getCurrentState());
+        //System.out.println(getCurrentState());
         while(!isSolved()){
             Transition transition = strategy.proposeTransition(this);
             if(transition.isValidTransition()){
-                State transitionEndState = transition.getEndState();
-                this.setCurrentState(transitionEndState);
-                System.out.println(getCurrentState());
+                this.setCurrentState(transition.getEndState());
+                //System.out.println(getCurrentState());
             }
-            updateIsSolved();
+            if(updateIsSolved())
+                break;
         }
-        System.out.println("Solved in " + ((HanoiProblem) this).getPastStates().size() + ((HanoiProblem) this).getMoveCount() + " moves (" + (System.currentTimeMillis()-start) + " milliseconds)");
+        if (isSolved())
+            System.out.println("Solved in " + ((HanoiProblem) this).getPastStates().size() + ((HanoiProblem) this).getMoveCount() + " moves (" + (System.currentTimeMillis()-start) + " milliseconds)");
+        else {
+            System.out.println("Could not solve");
+        }
         return isSolved();
     }
 
@@ -35,7 +39,7 @@ public interface Problem {
 
     void setIsSolved(Boolean isSolved);
 
-    void updateIsSolved();
+    boolean updateIsSolved();
 
     List<Transition> getValidTransitions();
 }
